@@ -1,0 +1,49 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+
+const meta = {
+  title: "My Origin Blog",
+  description: "My Origin Blog",
+  keywords: "My Origin Blog",
+  url: "https://my-origin-blog.com",
+  image: "https://my-origin-blog.com/ogp.jpg",
+};
+
+/** api */
+import { getAllBlogs } from "../repositories/microcmsRepository";
+
+const res = await getAllBlogs({ fields: ["id", "title", "createdAt", "url", "contents"] });
+---
+
+<Layout meta={meta}>
+  <main class="main">
+    <div class="content">
+      {
+        res.contents.map((content: any) => {
+          return (
+            <Card
+              href={content.id}
+              title={content.title}
+              contents={content.contents}
+              createdAt={content.createdAt}
+            />
+          );
+        })
+      }
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .main {
+    padding: 0 20px;
+  }
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+</style>

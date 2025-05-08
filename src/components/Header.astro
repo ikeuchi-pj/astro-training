@@ -1,0 +1,59 @@
+<header>
+  <div class="header-parent">
+    <div class="text-title">
+      <h1 class="text-gradient">My Blog</h1>
+    </div>
+    <div class="row">
+      <nav class="header__nav">
+        <ul>
+          <li class="current">
+            <a class="smoothscroll" href="">Home</a>
+          </li>
+          <li><a class="smoothscroll" href="">Profile</a></li>
+          <li><a class="smoothscroll" href="">About me</a></li>
+          <li><a class="smoothscroll" href="">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<style>
+  header {
+    background-color: #000;
+    color: #fff;
+  } 
+  .header-parent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; 
+  }
+  .text-gradient {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .row {
+    a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+  .header__nav {
+    ul {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
+  li {
+    & + li {
+      margin-left: 20px;
+    }
+  }
+</style>

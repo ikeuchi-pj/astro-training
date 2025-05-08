@@ -1,0 +1,52 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const meta = {
+  title: "My Origin Blog",
+  description: "My Origin Blog",
+  keywords: "My Origin Blog",
+  url: "https://my-origin-blog.com",
+  image: "https://my-origin-blog.com/ogp.jpg",
+};
+/** types */
+// import type { BlogsDetail } from "../types/microcmsTypes";
+
+/** api */
+import {
+  getAllBlogs,
+  getBlogsDetail,
+} from "../repositories/microcmsRepository";
+
+/** utils */
+import { formatDate } from "../util/formatDate";
+
+const { blogId } = Astro.params;
+let blogData: any = null;
+
+if (blogId) {
+  blogData = await getBlogsDetail(blogId);
+}
+
+export async function getStaticPaths() {
+  const res = await getAllBlogs({ fields: ["id"] });
+  return res.contents.map((content) => {
+    return {
+      params: {
+        blogId: content.id,
+      },
+    };
+  });
+}
+---
+
+<Layout meta={meta}>
+  <main>
+    <h1>{blogData ? blogData.title : ""}</h1>
+    <p>
+      投稿日：{
+        blogData ? new formatDate(blogData.revisedAt).toJpDateWithWeek() : ""
+      }
+    </p>
+    <div set:html={blogData ? blogData.content : ""} />
+  </main>
+</Layout>
