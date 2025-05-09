@@ -1,11 +1,35 @@
 ---
+/** utils */
+import { formatDate } from "../util/formatDate";
+/**
+ * カードコンポーネント
+ * ブログ記事のプレビューを表示するためのカードコンポーネント
+ * 
+ * @param {string} href - 記事へのリンクパス
+ * @param {string} title - 記事タイトル
+ * @param {Object|string} url - 画像のURL（オブジェクトまたは文字列）
+ * @param {string} createdAt - 作成日時
+ * @param {string} contents - 記事の内容（HTML形式）
+ */
 const { href, title, url, createdAt, contents } = Astro.props;
+
+// urlがオブジェクトの場合は適切なプロパティを取得
+const imageUrl = typeof url === 'object' ? url.src || url.url || '' : url;
 ---
 
 <div class="card">
   <a href={`/${href}`}>
-    <h2>{title}</h2>
-    <p>{createdAt}</p>
-    <p set:html={contents}></p>
+    <figure class="card_figure">
+      <img class="card_figure_img" src={imageUrl} alt={title} />
+    </figure>
+    <h2 class="card_title">{title}</h2>
+    <p class="card_date">{new formatDate(createdAt).toJpDateWithWeek()}</p>
+    <p class="card_content" set:html={contents}></p>
   </a>
 </div>
+
+<style>
+  .card {
+    width: calc(50% - 20px);
+  }
+</style>

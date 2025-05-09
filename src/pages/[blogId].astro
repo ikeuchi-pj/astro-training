@@ -8,8 +8,6 @@ const meta = {
   url: "https://my-origin-blog.com",
   image: "https://my-origin-blog.com/ogp.jpg",
 };
-/** types */
-// import type { BlogsDetail } from "../types/microcmsTypes";
 
 /** api */
 import {
@@ -41,12 +39,10 @@ export async function getStaticPaths() {
 
 <Layout meta={meta}>
   <main>
-    <h1>{blogData ? blogData.title : ""}</h1>
+    <h1>{blogData.title}</h1>
     <p>
-      投稿日：{
-        blogData ? new formatDate(blogData.revisedAt).toJpDateWithWeek() : ""
-      }
+      投稿日：{new formatDate(blogData.revisedAt).toJpDateWithWeek()}
     </p>
-    <div set:html={blogData ? blogData.content : ""} />
+    <div set:html={blogData.contents} />
   </main>
 </Layout>

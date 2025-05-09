@@ -27,6 +27,7 @@ const res = await getAllBlogs({ fields: ["id", "title", "createdAt", "url", "con
               title={content.title}
               contents={content.contents}
               createdAt={content.createdAt}
+              url={content.url}
             />
           );
         })
@@ -37,6 +38,7 @@ const res = await getAllBlogs({ fields: ["id", "title", "createdAt", "url", "con
 
 <style>
   .main {
+    margin-top: 100px;
     padding: 0 20px;
   }
   .content {
