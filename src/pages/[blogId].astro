@@ -35,14 +35,43 @@ export async function getStaticPaths() {
     };
   });
 }
+
+const imageUrl = typeof blogData.url === 'object' ? blogData.url.src || blogData.url.url || '' : blogData.url;
+
 ---
 
 <Layout meta={meta}>
   <main>
     <h1>{blogData.title}</h1>
+    <figure>
+      <img src={imageUrl} alt={blogData.title} />
+    </figure>
     <p>
       投稿日：{new formatDate(blogData.revisedAt).toJpDateWithWeek()}
     </p>
     <div set:html={blogData.contents} />
   </main>
 </Layout>
+
+<style>
+  main {
+    max-width: 1000px;
+    margin: 20px auto 0;
+  }
+  figure {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  p {
+    margin-top: 20px;
+  }
+  div {
+    margin-top: 20px;
+  }
+</style>
