@@ -96,12 +96,12 @@ https://github.com/q-jutaku/coding_rule/blob/main/css.md#sassmixins
   } @else {
     @if $target ==parent(#{&}) {
       @at-root #{selector-replace(&, parent(#{&}),
-      $target +$state) } {
+      $target + $state) } {
         @content;
       }
     } @else {
       @at-root #{selector-replace(&, parent(#{&}),
-    $target +$state +" "+parent(#{&}))
+    $target + $state + " " + parent(#{&}))
           } {
         @content;
       }
